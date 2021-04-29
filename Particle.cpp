@@ -9,6 +9,9 @@ using namespace std;
 int particle_size = 10;
 int kill_level = 1300 / particle_size;
 
+static int ARRAYX = 200;
+static int ARRAYY = 200;
+
 int particle_pos[200][200];
 
 /*
@@ -52,7 +55,14 @@ public:
             particle_pos[x][y] = 0;
             x += x_neu;
             y += y_neu;
-            particle_pos[x][y] = 1;
+            if (y > ARRAYY - 2) {
+
+            }
+            else {
+                particle_pos[x][y] = 1;
+            }
+            
+
         }
  
     }

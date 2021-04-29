@@ -102,9 +102,11 @@ int main()
 
         mouse_hologram.setPosition(gamex * particle_size, gamey * particle_size);
 
-        // draw all particles
+        // draw all particles and update them
         for (auto i = particle_list.begin(); i != particle_list.end(); i++)
         {
+            i->move(i->x, i->y + 1);
+
             sf::RectangleShape shape(sf::Vector2f(particle_size, particle_size));
             shape.setFillColor(i->color);
 
