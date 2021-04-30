@@ -4,7 +4,9 @@
 #include <string.h>
 #include <thread>
 
-int max_frame_rate = 120;
+int VERSION = 1.1;
+
+int max_frame_rate = 144;
 int ticks = 0;
 bool game_paused = false;
 int mouse_hologram_border = 2;
@@ -16,7 +18,22 @@ int gamey;
 string selected_particle_type = "Stone";
 
 
+void spawn_rect(int size) {
+    int half_size = size / 2;
+    for (int x = 0; x < size; x++) {
+        for (int y = 0; y < size; y++) {
+            spawn_particle(gamex + x - half_size / 2, gamey + y - half_size / 2, selected_particle_type);
+        }
+    }
+}
 
+void kill_rect(int size) {
+    for (int x = 0; x < size; x++) {
+        for (int y = 0; y < size; y++) {
+            kill_particle(gamex + x - size / 2, gamey + y - size / 2);
+        }
+    }
+}
 
 int main()
 {
@@ -26,23 +43,25 @@ int main()
     mouse_hologram.setOutlineColor(sf::Color::Color(100,200,10));
     mouse_hologram.setOutlineThickness(mouse_hologram_border);
 
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "ParticleGame");// , sf::Style::Fullscreen);
+    sf::Text selected_text;
+    sf::Font font;
+    if (!font.loadFromFile("arial.ttf"))
+    {
+        cout << "Error loading font...";
+    }
+    selected_text.setPosition(50, 50);
+    selected_text.setFont(font);
+
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "ParticleGame"); // , sf::Style::Fullscreen);
     window.setFramerateLimit(max_frame_rate);
     sf::RectangleShape shape;
-
-    
-    
-    for (int i = 0; i < 20; i++) {
-        spawn_particle(10 + i, 20, "Stone");
-    }
     
     
     
 
     while (window.isOpen())
     {
-        //spawn_particle(20, 10, "Water");
-        
+
         ticks++;
 
         // Window Events
@@ -63,13 +82,12 @@ int main()
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
-            spawn_particle(gamex, gamey, selected_particle_type);
-            spawn_particle(gamex-1, gamey, selected_particle_type);
-            spawn_particle(gamex+1, gamey, selected_particle_type);
+            spawn_rect(10);
+            
         }
         if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
         {
-            kill_particle(gamex, gamey);
+            kill_rect(10);
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
@@ -94,6 +112,11 @@ int main()
             cout << "Particles: " << particle_list.size() << "\n";
         }
 
+        //Screen info print
+        selected_text.setString(selected_particle_type);
+        selected_text.setCharacterSize(24);
+        selected_text.setFillColor(sf::Color::Red);
+
         
             
         // draw cycle
@@ -105,7 +128,25 @@ int main()
         // draw all particles and update them
         for (auto i = particle_list.begin(); i != particle_list.end(); i++)
         {
-            i->move(i->x, i->y + 1);
+
+            if (i->y > ARRAYY - 4) {
+                //kill_particle(i->x, i->y);
+                particle_list.erase(i);
+                if (i->y > ARRAYY - 2 or i->x > ARRAYX - 2 or i->x < 2 or i->y < 2) {
+                }
+                else {
+                    particle_pos[i->x][i->y] = 0;
+                }
+                
+                
+            }
+            else {
+                i->move();
+            }
+
+            
+
+
 
             sf::RectangleShape shape(sf::Vector2f(particle_size, particle_size));
             shape.setFillColor(i->color);
@@ -115,6 +156,7 @@ int main()
             window.draw(shape);
         }
         window.draw(mouse_hologram);
+        window.draw(selected_text);
         window.display();
             
             
