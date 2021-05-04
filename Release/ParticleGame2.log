@@ -26,8 +26,8 @@ W:\Programming\Programming-C++\Programs\ParticleGame2 static\ParticleGame2.cpp(1
 W:\Programming\Programming-C++\Programs\ParticleGame2 static\ParticleGame2.cpp(154,61): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
 W:\Programming\Programming-C++\Programs\ParticleGame2 static\ParticleGame2.cpp(154,37): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
   Code wird generiert.
-  1 of 176 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+  2 of 176 functions ( 1.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Codegenerierung ist abgeschlossen.
   ParticleGame2.vcxproj -> W:\Programming\Programming-C++\Programs\ParticleGame2 static\Release\ParticleGame2.exe

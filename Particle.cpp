@@ -62,7 +62,7 @@ public:
             int x_neu = (rand() % 3) - 1;
             int y_neu = 1;
 
-            for (int i = 0; i < (rand() % 15) * 2; i++) {
+            for (int i = 0; i < (rand() % 150) * 2; i++) {
                 if (y > ARRAYY - 2 or x > ARRAYX - 2 or x < 2 or y < 2) {
                 }
                 else {
